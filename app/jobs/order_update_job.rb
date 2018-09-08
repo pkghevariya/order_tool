@@ -6,9 +6,9 @@ class OrderUpdateJob < ActiveJob::Base
     	
     	@order_status = webhook['fulfillment_status']
     	webhook['line_items'].each do |line_item|
-    		@is_digital = line_item.requires_shipping
+    		@is_digital = line_item["requires_shipping"]
     	end
-    	@shipping_company = webhook['shipping_lines'][0].title rescue ''
+    	@shipping_company = webhook['shipping_lines'][0]['title'] rescue ''
     	@tracking_no = ''#not found
     	@order_id = webhook['id']
     	@shop_domain = shop_domain #unique identifier
