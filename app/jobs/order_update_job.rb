@@ -18,17 +18,17 @@ class OrderUpdateJob < ActiveJob::Base
 			@order = ShopifyAPI::Order.find(webhook['id'])
       @order_updated = false
     	if @result.response.code == 200
-    		@order.update(note: "order status updated to #{@order_status}")
+    		@order.update(note: "order status updated to #{@order_status}") if @order.note != "order status updated to #{@order_status}"
     	else
         for i in 0..1
           @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
           if @result.response.code == 200
-            @order.update(note: "order status updated to #{@order_status}")
+            @order.update(note: "order status updated to #{@order_status}") if @order.note != "order status updated to #{@order_status}"
             @order_updated = true
             break
           end
         end
-    		@order.update(note: "Error message here") unless @order_updated
+    		@order.update(note: "Error message here") if @order.note != "Error message here" && !@order_updated
     	end
     end
   end
