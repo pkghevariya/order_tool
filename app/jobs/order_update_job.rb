@@ -3,7 +3,7 @@ class OrderUpdateJob < ActiveJob::Base
     shop = Shop.find_by(shopify_domain: shop_domain)
 
     shop.with_shopify_session do
-    	
+      puts "Order Update Webhook called..........."
     	@order_status = webhook['fulfillment_status']
     	@order_status = 'unfulfilled' unless @order_status.present?
     	webhook['line_items'].each do |line_item|
