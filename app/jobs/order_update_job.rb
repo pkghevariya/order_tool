@@ -31,14 +31,14 @@ class OrderUpdateJob < ActiveJob::Base
                         @order.update_attributes(note: "order status updated to #{@order_status}")
                         @order_updated = true
                     else
-                    for i in 0..1
-                        @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
-                        if @result.response.code == '200'
-                            @order.update_attributes(note: "order status updated to #{@order_status}")
-                            @order_updated = true
-                            break
+                        for i in 0..1
+                            @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
+                            if @result.response.code == '200'
+                                @order.update_attributes(note: "order status updated to #{@order_status}")
+                                @order_updated = true
+                                break
+                            end
                         end
-                    end
                         @order.update_attributes(note: "Error message here") if @order.note != "Error message here" && !@order_updated
                     end
                 else
