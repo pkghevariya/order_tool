@@ -5,9 +5,9 @@ class OrderUpdateJob < ActiveJob::Base
     shop.with_shopify_session do
       puts "Order Update Webhook called..........."
       # do nothing if already processed
+    	@order_status = webhook['fulfillment_status']
+    	@order_status = 'unfulfilled' unless @order_status.present?
       if webhook['note'] != "order status updated to #{@order_status}"
-      	@order_status = webhook['fulfillment_status']
-      	@order_status = 'unfulfilled' unless @order_status.present?
       	webhook['line_items'].each do |line_item|
       		@is_digital = !line_item["requires_shipping"]
       	end
