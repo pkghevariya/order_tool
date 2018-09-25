@@ -1,4 +1,5 @@
 class OrderUpdateJob < ActiveJob::Base
+    include OrderHelper
     def perform(shop_domain:, webhook:)
         shop = Shop.find_by(shopify_domain: shop_domain)
 
@@ -22,20 +23,18 @@ class OrderUpdateJob < ActiveJob::Base
                     puts "Gateway===#{webhook['gateway'].downcase}"
                     puts "Tracking No:===#{@tracking_no}"
                     puts "Tracking Company:===#{@tracking_company}"
-                    @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
-
+                    
                     #update order note
                     @order = ShopifyAPI::Order.find(webhook['id'])
+                    @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
                     @order_updated = false
                     if @result.response.code == '200'
-                        @order.update_attributes(note: "order status updated to #{@order_status}")
-                        @order_updated = true
+                        order_status_change
                     else
                         for i in 0..1
                             @result = shop.order_call(@order_status,@is_digital,@shipping_company,@tracking_no,@shop_domain)
                             if @result.response.code == '200'
-                                @order.update_attributes(note: "order status updated to #{@order_status}")
-                                @order_updated = true
+                                order_status_change
                                 break
                             end
                         end
