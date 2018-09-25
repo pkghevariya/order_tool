@@ -8,7 +8,7 @@ class OrderUpdateJob < ActiveJob::Base
             # do nothing if already processed
             @order_status = webhook['fulfillment_status']
             @order_status = 'unfulfilled' unless @order_status.present?
-            if webhook['note'] != "order status updated to #{@order_status}"
+            if !webhook['note'].include? "order status updated to #{@order_status}"
                 webhook['line_items'].each do |line_item|
                     @is_digital = !line_item["requires_shipping"]
                 end
