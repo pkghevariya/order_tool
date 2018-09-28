@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <% application_name = ShopifyApp.configuration.application_name %>
     <title><%= application_name %></title>
+    <link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/2.10.0/polaris.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
@@ -28,6 +30,22 @@
         shopOrigin: "<%= "https://#{ @shop_session.url }" if @shop_session %>",
         debug: <%= Rails.env.development? ? 'true' : 'false' %>,
         forceRedirect: <%= Rails.env.development? ? 'false' : 'true' %>
+      });
+      ShopifyApp.ready(function(){
+        ShopifyApp.Bar.initialize({
+          icon: "<%= ENV['PARTNER_URL'] %>/images/app_logo.jpg",
+          buttons: {
+            secondary: [
+              { label: "Reports", href: "/" },
+              { label: "Contact", href: "https://www.google.com" },
+              { label: "FAQ", href: "https://www.google.com" }
+            ],
+            primary: {
+              label: 'Home',
+              href: "/order_tool/home"
+            }
+          }
+        });
       });
     </script>
 
