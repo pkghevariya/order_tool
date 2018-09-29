@@ -7,8 +7,8 @@
 # stripe_publishable_key: pk_test_ro9jV5SNwGb1yYlQfzG17LHK
 #
 development:
-    shopify_api_key: c40fcdd4a8ec9a0d615a4e4307f6b7bf
-    shopify_api_secret: 3aacf0c182fc82056708baa9dd8ec43e
+    shopify_api_key: 63600ce01a24e1db61267c3855b339a9
+    shopify_api_secret: a60dee96ffb8f6ddeeb321d70a2ea3ff
     domain: 192.168.0.105:3000
 
 production:
