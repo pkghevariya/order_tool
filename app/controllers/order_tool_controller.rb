@@ -1,5 +1,4 @@
-# class OrderToolController < ShopifyApp::AuthenticatedController
-class OrderToolController < ApplicationController
+class OrderToolController < ShopifyApp::AuthenticatedController
 	def instructions
   	
  	end
