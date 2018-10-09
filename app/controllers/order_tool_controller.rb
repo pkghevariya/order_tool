@@ -3,7 +3,7 @@ class OrderToolController < ShopifyApp::AuthenticatedController
   	
  	end
 
-	def home
+	def dashboard
 		
 	end
 
