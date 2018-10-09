@@ -12,6 +12,6 @@ development:
     domain: 192.168.0.105:3000
 
 production:
-    shopify_api_key: 63600ce01a24e1db61267c3855b339a9
-    shopify_api_secret: a60dee96ffb8f6ddeeb321d70a2ea3ff
+    shopify_api_key: 110cff3eeaf1957124d35263e5f16cc8
+    shopify_api_secret: 05de538b9081c05c9870decd44909b23
     domain: order-tool.herokuapp.com
